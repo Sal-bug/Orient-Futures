@@ -11,7 +11,8 @@ import time
 
 # Get raw html codes without opening the actual browser.
 
-chrome_driver_binary = "/home/shensong/Desktop/Orient Futures/chromedriver"
+# chrome_driver_binary = "/home/shensong/Desktop/Orient Futures/chromedriver"
+chrome_driver_binary = "./chromedriver"
 options = Options()
 options.add_argument("headless")
 options.headless = True
@@ -48,7 +49,7 @@ dataBase = mysql.connector.connect(
 
 cursorObject = dataBase.cursor()
 
-# Create table 
+# Create tables
 companyRecord = """CREATE TABLE IF NOT EXISTS FUNDS (
                    NAME  VARCHAR(20) NOT NULL,
                    LOCATION VARCHAR(50),
@@ -59,12 +60,33 @@ companyRecord = """CREATE TABLE IF NOT EXISTS FUNDS (
                   )"""
 cursorObject.execute(companyRecord)
 
-stockRecord = """CREATE TABLE IF NOT EXISTS HOLDS (
+stockRecord = """CREATE TABLE IF NOT EXISTS STOCKS (
                    COMPANY_ID INT NOT NULL,
 				   STOCK_NAME VARCHAR(20),
 				   STOCK_VALUE VARCHAR(20)
                   )"""
 cursorObject.execute(stockRecord)
+
+fundRecord = """CREATE TABLE IF NOT EXISTS FUNDS (
+                   COMPANY_ID INT NOT NULL,
+				   FUND_NAME VARCHAR(20),
+				   FUND_TYPE VARCHAR(20)
+                  )"""
+cursorObject.execute(fundRecord)
+
+mmFundRecord = """CREATE TABLE IF NOT EXISTS MMFUNDS (
+                   COMPANY_ID INT NOT NULL,
+				   FUND_NAME VARCHAR(20),
+				   FUND_TYPE VARCHAR(20)
+                  )"""
+cursorObject.execute(mmFundRecord)
+
+eqFundRecord = """CREATE TABLE IF NOT EXISTS EQFUNDS (
+                   COMPANY_ID INT NOT NULL,
+				   FUND_NAME VARCHAR(20),
+				   FUND_TYPE VARCHAR(20)
+                  )"""
+cursorObject.execute(eqFundRecord)
 
 i = 1
 for company_sample in company_web:
@@ -78,6 +100,7 @@ for company_sample in company_web:
 
 	driver.get(company_sample)
 
+	# Scratch basic information
 	company_name = driver.find_element(By.CSS_SELECTOR, ".ttjj-panel-main-title").text
 	company_scale = driver.find_element(By.CSS_SELECTOR, ".fund-info li:first-child label").text
 	fund_num = driver.find_element(By.CSS_SELECTOR, ".fund-info li:nth-child(2) label a").text
@@ -88,7 +111,7 @@ for company_sample in company_web:
 	# end = time.time()
 	# print("scratch time: " + str(end - start))
 
-	# Insert data
+	# Scratch stock data
 	insert = "INSERT INTO FUNDS (NAME, LOCATION, SCALE, FUNDS_NO, MANAGE_NO, TIME)\
 		VALUES (%s, %s, %s, %s, %s, %s)"
 	val = (company_name, company_loc, company_scale, fund_num, manage_num, company_date)
@@ -97,23 +120,24 @@ for company_sample in company_web:
 	stock_name = driver.find_elements(By.CSS_SELECTOR, "#js-gpcc-body tr td:nth-child(3) a")
 	stock_value = driver.find_elements(By.CSS_SELECTOR, "#js-gpcc-body tr td:last-child")
 	for j in range(len(stock_value)):
-		insert = "INSERT INTO HOLDS (COMPANY_ID, STOCK_NAME, STOCK_VALUE)\
+		insert = "INSERT INTO STOCKS (COMPANY_ID, STOCK_NAME, STOCK_VALUE)\
 			VALUES (%s, %s, %s)"
 		val = (i, stock_name[j].text, stock_value[j].text)
 		cursorObject.execute(insert, val)
 
+	# Scratch all funds owned by the company.
+	allFunds = driver.find_elements(By.CSS_SELECTOR, "ttjj-table ttjj-table-hover common-sort-table .fund-name-code a" )
+	allTypes = driver.find_elements(By.CSS_SELECTOR, "ttjj-table ttjj-table-hover common-sort-table tr td:nth-child(3)" )
 	i += 1
 
 # # Retrieve data
 # query = "SELECT * FROM HOLDS ORDER BY COMPANY_ID DESC"
 # cursorObject.execute(query)
-
 # myresult = cursorObject.fetchall()
-
 # for each in myresult:
 # 	print(each)
 
-dataBase.commit()
+# dataBase.commit()
 
 # disconnecting from server
 cursorObject.close()
