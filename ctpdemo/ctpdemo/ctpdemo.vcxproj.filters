@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="CtpMdDemo.cpp" />
+    <ClCompile Include="CtpTraderDemo.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="api">
+      <UniqueIdentifier>{e823150b-b9ee-474e-a853-cb8c8c24a905}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CtpMdDemo.h" />
+    <ClInclude Include="api\DataCollect.h">
+      <Filter>api</Filter>
+    </ClInclude>
+    <ClInclude Include="api\ThostFtdcMdApi.h">
+      <Filter>api</Filter>
+    </ClInclude>
+    <ClInclude Include="api\ThostFtdcTraderApi.h">
+      <Filter>api</Filter>
+    </ClInclude>
+    <ClInclude Include="api\ThostFtdcUserApiDataType.h">
+      <Filter>api</Filter>
+    </ClInclude>
+    <ClInclude Include="api\ThostFtdcUserApiStruct.h">
+      <Filter>api</Filter>
+    </ClInclude>
+    <ClInclude Include="CtpTraderDemo.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="api\error.dtd">
+      <Filter>api</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="api\error.xml">
+      <Filter>api</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="api\LinuxDataCollect.so">
+      <Filter>api</Filter>
+    </Library>
+    <Library Include="api\thostmduserapi_se.so">
+      <Filter>api</Filter>
+    </Library>
+    <Library Include="api\thosttraderapi_se.so">
+      <Filter>api</Filter>
+    </Library>
+    <Library Include="api\libdataCollect.so">
+      <Filter>api</Filter>
+    </Library>
+    <Library Include="api\libmd.so">
+      <Filter>api</Filter>
+    </Library>
+    <Library Include="api\libtrader.so">
+      <Filter>api</Filter>
+    </Library>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,3 @@
+/home/shensong/Desktop/Orient-Futures/ctpdemo/ctpdemo/build/CMakeFiles/CtpDemo.dir
+/home/shensong/Desktop/Orient-Futures/ctpdemo/ctpdemo/build/CMakeFiles/edit_cache.dir
+/home/shensong/Desktop/Orient-Futures/ctpdemo/ctpdemo/build/CMakeFiles/rebuild_cache.dir

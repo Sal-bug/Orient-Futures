@@ -1,0 +1,1 @@
+/usr/bin/c++ -rdynamic CMakeFiles/CtpDemo.dir/CtpMdDemo.cpp.o CMakeFiles/CtpDemo.dir/CtpTraderDemo.cpp.o CMakeFiles/CtpDemo.dir/main.cpp.o -o CtpDemo   -L/home/shensong/Desktop/Orient-Futures/ctpdemo/ctpdemo/api  -Wl,-rpath,/home/shensong/Desktop/Orient-Futures/ctpdemo/ctpdemo/api -ldataCollect -lmd -lthostmduserapi_se -lthosttraderapi_se -ltrader 

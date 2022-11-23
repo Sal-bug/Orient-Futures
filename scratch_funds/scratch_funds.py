@@ -50,11 +50,23 @@ dataBase = mysql.connector.connect(
 
 cursorObject = dataBase.cursor()
 
+# Drop all the tables.
+companyDelete = """DROP TABLE IF EXISTS company;"""
+cursorObject.execute(companyDelete)
+stocksDelete = """DROP TABLE IF EXISTS stocks;"""
+cursorObject.execute(stocksDelete)
+fundsDelete = """DROP TABLE IF EXISTS funds;"""
+cursorObject.execute(fundsDelete)
+mmfundsDelete = """DROP TABLE IF EXISTS mmfunds;"""
+cursorObject.execute(mmfundsDelete)
+eqfundsDelete = """DROP TABLE IF EXISTS eqfunds;"""
+cursorObject.execute(eqfundsDelete)
+
 # Create tables
 
 companyRecord = """CREATE TABLE IF NOT EXISTS company (
                    name  VARCHAR(20) NOT NULL,
-                   location VARCHAR(50),
+                   location VARCHAR(150),
                    scale VARCHAR(20) NOT NULL,
                    funds_no INT,
                    manage_no INT,
@@ -96,11 +108,12 @@ cursorObject.execute(eqFundRecord)
 
 i = 1
 for company_sample in company_web:
+
 	if i % 20 == 0:
 		print(i)
 
 	# The last 10 comapnies have too little information.
-	if i == 190:
+	if i == 192:
 		break
 	# start = time.time()
 
